@@ -1,7 +1,8 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.5.5'
-	id 'io.spring.dependency-management' version '1.1.7'
+	// CORREÇÃO: Use uma versão do Spring Boot compatível com o Spring Cloud
+	id 'org.springframework.boot' version '3.3.0' // Use uma versão compatível
+	id 'io.spring.dependency-management' version '1.1.5' // Use uma versão compatível
 }
 
 group = 'me.dio'
@@ -18,13 +19,31 @@ repositories {
 	mavenCentral()
 }
 
+// ADICIONADO: Bloco para gerenciar versões, como o <properties> do Maven
+ext {
+	set('springCloudVersion', "2022.0.4") // Versão do Spring Cloud compatível com Spring Boot 3.3.0
+}
+
 dependencies {
+	// Estas dependências usam a versão do Spring Boot definida no plugins {}
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// Esta dependência usa a versão do Spring Cloud
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// ADICIONADO: Dependência para o SpringDoc OpenAPI
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }
 
 tasks.named('test') {
