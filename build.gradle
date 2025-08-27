@@ -1,8 +1,8 @@
 plugins {
 	id 'java'
-	// CORREÇÃO: Use uma versão do Spring Boot compatível com o Spring Cloud
-	id 'org.springframework.boot' version '3.3.0' // Use uma versão compatível
-	id 'io.spring.dependency-management' version '1.1.5' // Use uma versão compatível
+	// CORREÇÃO: Use uma versão do Spring Boot que se alinha com o Spring Cloud 2023.0.1
+	id 'org.springframework.boot' version '3.3.1'
+	id 'io.spring.dependency-management' version '1.1.7' // Versão atualizada
 }
 
 group = 'me.dio'
@@ -19,13 +19,12 @@ repositories {
 	mavenCentral()
 }
 
-// ADICIONADO: Bloco para gerenciar versões, como o <properties> do Maven
+// CORRIGIDO: Versão do Spring Cloud compatível com Spring Boot 3.3.1
 ext {
-	set('springCloudVersion', "2022.0.4") // Versão do Spring Cloud compatível com Spring Boot 3.3.0
+	set('springCloudVersion', "2023.0.1")
 }
 
 dependencies {
-	// Estas dependências usam a versão do Spring Boot definida no plugins {}
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	// Esta dependência usa a versão do Spring Cloud
