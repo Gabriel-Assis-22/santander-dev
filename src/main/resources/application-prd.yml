@@ -1,13 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}?sslmode=disable&protocolVersion=3
+    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
     username: ${PGUSER}
     password: ${PGPASSWORD}
   jpa:
     open-in-view: false
     hibernate:
       ddl-auto: validate
-    properties:
-      hibernate:
-        # A LINHA ABAIXO FORÇA O DIALETO CORRETO
-        dialect: org.hibernate.dialect.PostgreSQLDialect
