@@ -1,47 +1,35 @@
 plugins {
 	id 'java'
-	// CORREÇÃO: Use uma versão do Spring Boot que se alinha com o Spring Cloud 2023.0.1
-	id 'org.springframework.boot' version '3.3.1'
-	id 'io.spring.dependency-management' version '1.1.7' // Versão atualizada
+	id 'org.springframework.boot' version '3.1.2'
+	id 'io.spring.dependency-management' version '1.1.2'
 }
 
 group = 'me.dio'
 version = '0.0.1-SNAPSHOT'
-description = 'Java RESTful API '
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+	sourceCompatibility = '17'
 }
 
 repositories {
 	mavenCentral()
 }
 
-// CORRIGIDO: Versão do Spring Cloud compatível com Spring Boot 3.3.1
-ext {
-	set('springCloudVersion', "2023.0.1")
-}
-
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	// Esta dependência usa a versão do Spring Cloud
-	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	// OpenAPI (Swagger) https://github.com/springdoc/springdoc-openapi
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 
 	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	runtimeOnly 'org.postgresql:postgresql:42.7.3'
 
-	// ADICIONADO: Dependência para o SpringDoc OpenAPI
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+tasks.jar {
+	manifest {
+		attributes["Main-Class"] = "me.dio.Application"
 	}
 }
 
