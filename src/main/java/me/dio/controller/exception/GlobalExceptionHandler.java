@@ -23,4 +23,4 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleNotFoundException(NoSuchElementException notFoundException) {
         return new ResponseEntity<>("Resource ID not found.", HttpStatus.NOT_FOUND);
     }
-}
+}x
